@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我 - 我的个人介绍</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "微软雅黑", sans-serif; line-height: 1.6; }
+        nav { background: #333; padding: 1rem; position: sticky; top: 0; z-index: 100; }
+        nav ul { display: flex; list-style: none; justify-content: center; }
+        nav a { color: white; text-decoration: none; padding: 0.5rem 1.5rem; transition: background 0.3s; }
+        nav a:hover { background: #555; border-radius: 4px; }
+        nav a.active { background: #007bff; }
+        .container { width: 80%; margin: 3rem auto; display: flex; gap: 3rem; }
+        .contact-info { flex: 1; }
+        .contact-form { flex: 1; }
+        .contact-info h2, .contact-form h2 { color: #333; margin-bottom: 1.5rem; }
+        .contact-info p { margin-bottom: 1rem; display: flex; align-items: center; }
+        .contact-info p i { margin-right: 0.5rem; color: #007bff; font-size: 1.2rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; color: #333; }
+        .form-group input, .form-group textarea { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; font-size: 1rem; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: #007bff; }
+        .error { color: red; font-size: 0.8rem; margin-top: 0.3rem; display: none; }
+        .submit-btn { padding: 0.8rem 2rem; background: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; transition: background 0.3s; }
+        .submit-btn:hover { background: #0056b3; }
+        .success { color: green; font-size: 1rem; margin-top: 1rem; display: none; text-align: center; }
+        footer { text-align: center; padding: 1rem; background: #333; color: white; margin-top: 2rem; }
+        /* 模拟图标样式（可替换为FontAwesome） */
+        .icon { display: inline-block; width: 20px; height: 20px; background: #007bff; border-radius: 50%; margin-right: 8px; }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="skills.html">技能特长</a></li>
+            <li><a href="experience.html">经历</a></li>
+            <li><a href="gallery.html">作品集</a></li>
+            <li><a href="contact.html" class="active">联系我</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- 联系信息 -->
+        <div class="contact-info">
+            <h2>联系方式</h2>
+            <p><span class="icon"></span> 邮箱：3605331686@qq.com</p>
+            <h2 style="margin-top: 2rem;">社交账号</h2>
+            <p><span class="icon"></span>这个人很懒，什么都不想留（其实大概率没有😢）</p>
+        </div>
+
+        <!-- 联系表单 -->
+        <div class="contact-form">
+            <h2>给我留言</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" name="name" placeholder="请输入您的姓名">
+                    <div class="error" id="nameError">请输入有效姓名（2-10个字符）</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" id="email" name="email" placeholder="请输入您的邮箱">
+                    <div class="error" id="emailError">请输入有效的邮箱地址</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">电话（选填）</label>
+                    <input type="tel" id="phone" name="phone" placeholder="请输入您的电话">
+                    <div class="error" id="phoneError">请输入有效的手机号码</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">留言内容</label>
+                    <textarea id="message" name="message" rows="5" placeholder="请输入您想对我说的话"></textarea>
+                    <div class="error" id="messageError">留言内容不能为空（至少10个字符）</div>
+                </div>
+
+                <button type="submit" class="submit-btn">提交留言</button>
+                <div class="success" id="successMsg">留言提交成功！我会尽快回复您</div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 我的个人网站 | 所有权利保留</p>
+    </footer>
+
+    <script>
+        // 表单验证与提交交互
+        const form = document.getElementById('contactForm');
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const phoneInput = document.getElementById('phone');
+        const messageInput = document.getElementById('message');
+        const successMsg = document.getElementById('successMsg');
+
+        // 验证函数
+        function validateName() {
+            const error = document.getElementById('nameError');
+            if (nameInput.value.trim().length < 2 || nameInput.value.trim().length > 10) {
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validateEmail() {
+            const error = document.getElementById('emailError');
+            const reg = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+            if (!reg.test(emailInput.value.trim())) {
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validatePhone() {
+            const error = document.getElementById('phoneError');
+            if (phoneInput.value.trim() === '') return true; // 选填
+            const reg = /^1[3-9]\d{9}$/;
+            if (!reg.test(phoneInput.value.trim())) {
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        function validateMessage() {
+            const error = document.getElementById('messageError');
+            if (messageInput.value.trim().length < 10) {
+                error.style.display = 'block';
+                return false;
+            }
+            error.style.display = 'none';
+            return true;
+        }
+
+        // 实时验证
+        nameInput.addEventListener('blur', validateName);
+        emailInput.addEventListener('blur', validateEmail);
+        phoneInput.addEventListener('blur', validatePhone);
+        messageInput.addEventListener('blur', validateMessage);
+
+        // 表单提交
+        form.addEventListener('submit', (e) => {
+            e.preventDefault(); // 阻止默认提交
+
+            // 验证所有字段
+            const isNameValid = validateName();
+            const isEmailValid = validateEmail();
+            const isPhoneValid = validatePhone();
+            const isMessageValid = validateMessage();
+
+            if (isNameValid && isEmailValid && isPhoneValid && isMessageValid) {
+                // 模拟提交成功
+                form.reset();
+                successMsg.style.display = 'block';
+                
+                // 3秒后隐藏成功提示
+                setTimeout(() => {
+                    successMsg.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
