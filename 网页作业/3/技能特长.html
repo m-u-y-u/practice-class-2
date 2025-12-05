@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能特长 - 我的个人介绍</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "微软雅黑", sans-serif; line-height: 1.6; }
+        nav { background: #333; padding: 1rem; position: sticky; top: 0; z-index: 100; }
+        nav ul { display: flex; list-style: none; justify-content: center; }
+        nav a { color: white; text-decoration: none; padding: 0.5rem 1.5rem; transition: background 0.3s; }
+        nav a:hover { background: #555; border-radius: 4px; }
+        nav a.active { background: #007bff; }
+        .container { width: 70%; margin: 3rem auto; }
+        .skill-card { margin-bottom: 2rem; }
+        .skill-card h3 { color: #333; margin-bottom: 0.5rem; }
+        .skill-bar { width: 100%; height: 25px; background: #eee; border-radius: 12px; overflow: hidden; }
+        .skill-progress { height: 100%; background: #007bff; border-radius: 12px; width: 0; transition: width 1s ease; }
+        .skill-tag { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+        .tag { padding: 0.5rem 1rem; background: #f0f0f0; border-radius: 20px; cursor: pointer; transition: all 0.3s; }
+        .tag:hover { background: #007bff; color: white; transform: scale(1.05); }
+        footer { text-align: center; padding: 1rem; background: #333; color: white; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html">关于我</a></li>
+            <li><a href="skills.html" class="active">技能特长</a></li>
+            <li><a href="experience.html">经历</a></li>
+            <li><a href="gallery.html">作品集</a></li>
+            <li><a href="contact.html">联系我</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 style="text-align: center; margin-bottom: 2rem; color: #333;">我的技能特长（都好难😭）</h2>
+
+        <!-- 专业技能进度条 -->
+        <div class="skill-card">
+            <h3>c语言</h3>
+            <div class="skill-bar">
+                <div class="skill-progress" data-progress="0"></div>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <h3>微积分</h3>
+            <div class="skill-bar">
+                <div class="skill-progress" data-progress="0"></div>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <h3>线性代数</h3>
+            <div class="skill-bar">
+                <div class="skill-progress" data-progress="0"></div>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <h3>大学英语</h3>
+            <div class="skill-bar">
+                <div class="skill-progress" data-progress="0"></div>
+            </div>
+        </div>
+
+        <div class="skill-card">
+            <h3>吃，喝，玩，睡</h3>
+            <div class="skill-bar">
+                <div class="skill-progress" data-progress="100"></div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <footer>
+        <p>© 2025 我的个人网站 | 所有权利保留</p>
+    </footer>
+
+    <script>
+        // 进度条加载动画
+        const progressBars = document.querySelectorAll('.skill-progress');
+        
+        // 监听滚动，触发进度条动画
+        window.addEventListener('scroll', () => {
+            progressBars.forEach(bar => {
+                const barTop = bar.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (barTop < windowHeight * 0.8 && !bar.classList.contains('animated')) {
+                    bar.classList.add('animated');
+                    bar.style.width = bar.getAttribute('data-progress') + '%';
+                }
+            });
+        });
+
+        // 初始触发
+        window.dispatchEvent(new Event('scroll'));
+    </script>
+</body>
+</html>

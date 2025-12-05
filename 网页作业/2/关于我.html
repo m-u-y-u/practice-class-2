@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我 - 我的个人介绍</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "微软雅黑", sans-serif; line-height: 1.6; }
+        nav { background: #333; padding: 1rem; position: sticky; top: 0; z-index: 100; }
+        nav ul { display: flex; list-style: none; justify-content: center; }
+        nav a { color: white; text-decoration: none; padding: 0.5rem 1.5rem; transition: background 0.3s; }
+        nav a:hover { background: #555; border-radius: 4px; }
+        nav a.active { background: #007bff; }
+        .container { width: 80%; margin: 2rem auto; }
+        .about-card { display: flex; gap: 2rem; margin-bottom: 3rem; opacity: 0; transform: translateY(20px); transition: all 0.8s; }
+        .about-card.visible { opacity: 1; transform: translateY(0); }
+        .about-card img { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; cursor: pointer; }
+        .about-info { flex: 1; padding: 1rem; }
+        .about-info h2 { color: #333; margin-bottom: 1rem; }
+        .about-info p { color: #666; margin-bottom: 1rem; }
+        /* 模态框样式 */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; justify-content: center; align-items: center; }
+        .modal img { max-width: 90%; max-height: 90%; }
+        .close { position: absolute; top: 20px; right: 30px; color: white; font-size: 2rem; cursor: pointer; }
+        footer { text-align: center; padding: 1rem; background: #333; color: white; margin-top: 2rem; }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about.html" class="active">关于我</a></li>
+            <li><a href="skills.html">技能特长</a></li>
+            <li><a href="experience.html">经历</a></li>
+            <li><a href="gallery.html">作品集</a></li>
+            <li><a href="contact.html">联系我</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="about-card">
+            <img src="C:\Users\平步青云\Desktop\大学\新生实践课\网页作业\2\avatar.jpg" alt="个人头像" id="avatar">
+            <div class="about-info">
+                <h2>基本信息</h2>
+                <p>姓名：平宇</p>
+                <p>年龄：18岁</p>
+                <p>籍贯：湖北省荆州市</p>
+                <p>学历：华中科技大学 计算机科学与技术 本科</p>
+                <p>兴趣爱好：大概是没有的😢</p>
+                <p>性格特点：我难以评价我自己🤣</p>
+            </div>
+        </div>
+
+        <div class="about-card">
+            <div class="about-info">
+        </div>
+    </div>
+
+    <!-- 图片查看模态框 -->
+    <div class="modal" id="imgModal">
+        <span class="close" id="closeModal">&times;</span>
+        <img src="" alt="大图查看" id="modalImg">
+    </div>
+
+    <footer>
+        <p>© 2025 我的个人网站 | 所有权利保留</p>
+    </footer>
+
+    <script>
+        // 滚动动画
+        const cards = document.querySelectorAll('.about-card');
+        window.addEventListener('scroll', () => {
+            cards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (cardTop < windowHeight * 0.8) {
+                    card.classList.add('visible');
+                }
+            });
+        });
+
+        // 触发一次滚动检测（初始加载）
+        window.dispatchEvent(new Event('scroll'));
+
+        // 模态框交互
+        const modal = document.getElementById('imgModal');
+        const modalImg = document.getElementById('modalImg');
+        const avatar = document.getElementById('avatar');
+        const growth = document.getElementById('growth');
+        const closeModal = document.getElementById('closeModal');
+
+        // 打开模态框
+        function openModal(imgSrc) {
+            modal.style.display = 'flex';
+            modalImg.src = imgSrc;
+        }
+
+        avatar.addEventListener('click', () => openModal(avatar.src));
+        growth.addEventListener('click', () => openModal(growth.src));
+
+        // 关闭模态框
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // 点击模态框背景关闭
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
